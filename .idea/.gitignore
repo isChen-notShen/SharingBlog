@@ -6,4 +6,12 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-/src/test/
+
+# Test
+../src/test/
+
+# IDEA
+*
+
+# Don't ignored files
+!.gitignore
