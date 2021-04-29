@@ -8,7 +8,7 @@
 /httpRequests/
 
 # Test
-../src/test/*
+../src/test/
 
 # IDEA
 *
