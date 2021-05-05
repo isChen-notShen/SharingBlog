@@ -91,4 +91,23 @@
 #### 参数类型 : *path*
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|blog-id    |string |Y  |博客的id  |
+|blog-id    |string |Y  |博客的id  |  
+
+#### 返回数据  
+    blog-name : 博客标题
+    author : 博客作者
+    released-time : 博客的发布时间
+    like : 博客的点赞数
+    data : 博客的内容
+
+#### 返回实例  
+~~~json
+{
+  "code" : 0,
+  "blog-name" : "Java垃圾收集机制详解",
+  "author" : "XXX",
+  "released-time" : "yyyy-mm-dd",
+  "like" : 520,
+  "data" : "#Java GC发展历程  \n......\n #Java虚拟机内存划分  \n......"
+}
+~~~
