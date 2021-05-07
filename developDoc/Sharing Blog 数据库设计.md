@@ -35,7 +35,7 @@
 |user_id    |int    |Y  |N  |Y  |user.id   |N  |   |文章作者   |
 |category_id    |int    |Y  |N  |Y  |category.id    |N  |   |文章分类   |
 |name   |varchar(20)    |Y  |N  |N  |   |N  |   |文章名    |
-|like   |smallint   |Y  |N  |N  |   |N  |0  |点赞数    |
+|like   |unsigned smallint   |Y  |N  |N  |   |N  |0  |点赞数    |
 |data   |text   |Y  |N  |N  |   |N  |   |文章内容   |
 
 - tag表  *描述的是标签的信息*  
@@ -66,5 +66,5 @@
 |id |int    |Y  |Y  |N  |   |Y  |   |评论id   |
 |user_id    |int    |Y  |N  |Y  |user.id    |N  |   |评论者的id |
 |release   |datetime   |Y   |N  |N  |   |N  |   |评论发布时间 |
-|like   |smallint   |Y  |N  |N  |   |N  |0  |点赞数    |
+|like   |unsigned smallint   |Y  |N  |N  |   |N  |0  |点赞数    |
 |data   |tinytext   |Y  |N  |N  |   |N  |   |评论内容   |  
