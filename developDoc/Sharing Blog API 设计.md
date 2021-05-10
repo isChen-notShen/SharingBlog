@@ -111,3 +111,39 @@
   "data" : "#Java GC发展历程  \n......\n #Java虚拟机内存划分  \n......"
 }
 ~~~
+
+### 4.登录
+
+#### 请求URL
+    http://localhost/sharingBlog/login 
+    
+#### 请求方式
+    POST  
+    
+#### 参数类型 : *body*
+|参数名    |参数类型   |是否必选   |说明 |
+|:---   |:---   |:---   |:---   |
+|user-name  |string |Y  |账号名    |
+|password   |string |Y  |密码 |  
+
+#### 返回类型  
+    token : 令牌，接下来的每次请求都将令牌提交至服务器  
+    info : 提示信息，如果code码为1，则此字段有效，内容包括登录失败原因
+    
+#### 返回实例  
+- 登陆成功
+~~~json
+{
+  "code" : 0,
+  "token" : "SAG665DBSD515SD981D",
+  "info" : "success"
+}
+~~~
+- 登录失败  
+~~~json
+{
+  "code" : 1,
+  "token" : "",
+  "info" : "failure, account or password error"
+}
+~~~
