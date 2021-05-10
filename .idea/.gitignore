@@ -10,8 +10,5 @@
 # Test
 ../src/test/
 
-# IDEA
-*
-
 # Don't ignored files
 !.gitignore
