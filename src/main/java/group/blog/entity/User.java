@@ -1,5 +1,7 @@
 package group.blog.entity;
 
+import java.util.List;
+
 /**
  * 用户实体，对应数据库的User表
  *
@@ -14,6 +16,8 @@ public class User {
     String password;
 
     String description;
+
+    List<String> watch;
 
 
     public int getId() {
@@ -32,6 +36,10 @@ public class User {
         return description;
     }
 
+    public List<String> getWatch() {
+        return watch;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -46,5 +54,9 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setWatch(List<String> watch) {
+        this.watch = watch;
     }
 }
