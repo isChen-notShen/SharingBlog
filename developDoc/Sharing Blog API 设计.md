@@ -4,14 +4,14 @@
 ### 1. 获取博客列表
 
 #### 请求URL
-    http://localhost/SharingBlog/blogs
+    http://localhost/SharingBlog/blogs[?category-id=XXX]  
     
+#### 请求方式
+    GET  
+
 #### 请求实例  
     http://localhost/SharingBlog/blogs
     http://localhost/SharingBlog/blogs?category-id=ss15xd
-    
-#### 请求方式
-    GET
 
 #### 参数类型 : *query*
 |参数名    |参数类型   |是否必选   |说明 |
@@ -115,7 +115,7 @@
 ### 4.登录
 
 #### 请求URL
-    http://localhost/sharingBlog/login 
+    http://localhost/SharingBlog/user/login 
     
 #### 请求方式
     POST  
@@ -147,3 +147,64 @@
   "info" : "failure, account or password error"
 }
 ~~~
+
+### 5.获取用户信息  
+
+#### 请求URL  
+    http://localhost/SharingBlog/user/information[?user-name=XXXXX]  
+    
+#### 请求方式  
+    GET  
+    
+#### 请求实例  
+    http://localhost/SharingBlog/user/information
+    http://localhost/SharingBlog/user/information?user-name=1170983543@qq.com
+      
+#### 参数类型 : *query*  
+|参数名    |参数类型   |是否必选   |说明 |
+|:---   |:---   |:---   |:---   |
+|user-name  |string |N  |账号名，若查询的是自己的个人信息，则可以不带该参数，<br/>服务器通过请求的token获取用户信息    |  
+
+#### 返回类型 : *json*
+    display-name : 用户名
+    user-name : 账号名
+    description : 个人描述
+
+#### 返回实例  
+~~~json
+{
+  "code" : 0,
+  "display-name" : "Chen",
+  "user-name" : "1170983543@qq.com",
+  "description" : "Java后端程序员"
+}
+~~~  
+
+### 6.获取用户头像  
+
+#### 请求URL  
+    http://localhost/SharingBlog/user/user-photo[?user-name=XXXX]  
+    
+#### 请求方式  
+    GET  
+    
+#### 请求实例  
+    http://localhost/SharingBlog/user/user-photo?user-name=1170983543@qq.com  
+    
+#### 参数类型 : *query*  
+|参数名    |参数类型   |是否必选   |说明 |
+|:---   |:---   |:---   |:---   |
+|user-name  |string |N  |若是个人头像，则可以不带该参数   |  
+
+<!-- 返回格式待定 -->
+<!-- 请忽略下面的内容
+#### 返回类型 : *json*  
+
+
+#### 返回实例  
+~~~json
+{
+  "code" : 0,
+  "photo" : ""
+}
+ -->  
