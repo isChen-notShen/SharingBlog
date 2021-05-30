@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Mr.Chen
  **/
 @Controller
+@RequestMapping("/user")
 public class UserHandler {
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public LoginResult login(@RequestParam("username") String name, @RequestParam("password") String password) {
+    public LoginResult login(@RequestParam("user-name") String name, @RequestParam("password") String password) {
         return userService.login(name, password);
     }
 }
