@@ -36,4 +36,6 @@
     <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
+
+    <bean id="portraitDao" class="group.blog.dao.imp.FileSystemPortraitDaoImp"/>
 </beans>

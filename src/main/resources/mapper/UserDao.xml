@@ -6,12 +6,16 @@
 <!--    开启二级缓存-->
 <!--    <cache/>-->
 
-    <select id="queryById" resultType="User" parameterType="int">
-        select id, name, password, description from USER where id = #{id}
+    <select id="queryUserById" resultType="User" parameterType="int">
+        select id, name, password, description, role, last_login_host from USER where id = #{id}
     </select>
 
-    <select id="queryByName" resultType="User" parameterType="String">
-        select id, name, password, description from USER where name = #{name}
+    <select id="queryUserByName" resultType="User" parameterType="String">
+        select id, name, password, description, role, last_login_host from USER where name = #{name}
     </select>
+
+    <update id="updateLastLoginHostById">
+        update user set last_login_host = #{host} where id = #{id}
+    </update>
 
 </mapper>

@@ -1,32 +1,31 @@
-package group.blog.util.token;
+package group.blog.util.token.manager;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import group.blog.entity.User;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
 import java.util.UUID;
 
 /**
+ * 使用redis缓存token的Token管理器
+ *
  * @author Mr.Chen
  **/
-@Component
-public class TokenManager {
+public class RedisTokenManager extends TokenManager {
 
-    @Autowired
     private JedisPool pool;
 
-
-    public String createToken(int userId) {
+    @Override
+    public String createToken(User user) {
         UUID uuid = UUID.randomUUID();
-        String token = userId + "_" + uuid.toString().replaceAll("-", "");
-        String key = userId + "_token";
+        String token = user.getId() + "_" + uuid.toString().replaceAll("-", "");
+        String key = user.getId() + "_token";
         Jedis jedis = pool.getResource();
         jedis.set(key, token, "NX", "EX", 180);
         jedis.close();
         return token;
     }
 
+    @Override
     public boolean checkToken(String token) {
         if (token == null || "".equals(token)) {
             return false;
@@ -53,6 +52,7 @@ public class TokenManager {
         return true;
     }
 
+    @Override
     public boolean clearToken(String token) {
         if (token == null || "".equals(token)) {
             return false;
@@ -76,4 +76,7 @@ public class TokenManager {
         return true;
     }
 
+    public void setPool(JedisPool pool) {
+        this.pool = pool;
+    }
 }

@@ -1,7 +1,10 @@
 # Sharing Blog API 设计
 - author : 谌师立
 
-### 1. 获取博客列表
+### 1. 获取博客列表  
+
+#### 身份验证
+    否
 
 #### 请求URL
     http://localhost/SharingBlog/blogs[?category-id=XXX]  
@@ -31,6 +34,7 @@
 ~~~json
 {
   "code" : 0,
+  "info" : "success",
   "count": 2,
   "data" : [
               {
@@ -49,6 +53,9 @@
 
 ### 2.获取分类列表  
 
+#### 身份验证  
+    否  
+
 #### 请求URL
     http://localhost/SharingBlog/categories
 
@@ -63,6 +70,7 @@
 ~~~json
 {
   "code" : 0,
+  "info" : "success",
   "count": 2,
   "data" : [
             {
@@ -78,6 +86,9 @@
 ~~~
 
 ### 3.获取博客  
+
+#### 身份验证  
+    否  
 
 #### 请求URL  
     http://localhost/SharingBlog/blog/:blog-id  
@@ -104,6 +115,7 @@
 ~~~json
 {
   "code" : 0,
+  "info" : "success",
   "blog-name" : "Java垃圾收集机制详解",
   "author" : "XXX",
   "released-time" : "yyyy-mm-dd",
@@ -114,6 +126,9 @@
 
 ### 4.登录
 
+#### 身份验证
+    否  
+
 #### 请求URL
     http://localhost/SharingBlog/user/login 
     
@@ -123,7 +138,7 @@
 #### 参数类型 : *body*
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user-name  |string |Y  |账号名    |
+|user_name  |string |Y  |账号名    |
 |password   |string |Y  |密码 |  
 
 #### 返回类型  
@@ -135,35 +150,38 @@
 ~~~json
 {
   "code" : 0,
-  "token" : "SAG665DBSD515SD981D",
-  "info" : "success"
+  "info" : "success",
+  "token" : "SAG665DBSD515SD981D"
 }
 ~~~
 - 登录失败  
 ~~~json
 {
   "code" : 1,
-  "token" : "",
-  "info" : "failure, account or password error"
+  "info" : "failure, account or password error",
+  "token" : ""
 }
 ~~~
 
 ### 5.获取用户信息  
 
+#### 身份验证  
+    否
+
 #### 请求URL  
-    http://localhost/SharingBlog/user/information[?user-name=XXXXX]  
+    http://localhost/SharingBlog/user/information?user_name=XXXXX  
     
 #### 请求方式  
     GET  
     
 #### 请求实例  
     http://localhost/SharingBlog/user/information
-    http://localhost/SharingBlog/user/information?user-name=1170983543@qq.com
+    http://localhost/SharingBlog/user/information?user_name=1170983543@qq.com
       
 #### 参数类型 : *query*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user-name  |string |N  |账号名，若查询的是自己的个人信息，则可以不带该参数，<br/>服务器通过请求的token获取用户信息    |  
+|user_name  |string |N  |账号名，若查询的是自己的个人信息，则可以不带该参数，<br/>服务器通过请求的token获取用户信息    |  
 
 #### 返回类型 : *json*
     display-name : 用户名
@@ -174,6 +192,7 @@
 ~~~json
 {
   "code" : 0,
+  "info" : "success",
   "display-name" : "Chen",
   "user-name" : "1170983543@qq.com",
   "description" : "Java后端程序员"
@@ -182,29 +201,22 @@
 
 ### 6.获取用户头像  
 
+#### 身份验证  
+    否
+
 #### 请求URL  
-    http://localhost/SharingBlog/user/user-photo[?user-name=XXXX]  
+    http://localhost/SharingBlog/user/portrait?user_name=XXXX
     
 #### 请求方式  
     GET  
     
 #### 请求实例  
-    http://localhost/SharingBlog/user/user-photo?user-name=1170983543@qq.com  
+    http://localhost/SharingBlog/user/portrait
+    http://localhost/SharingBlog/user/portrait?user_name=1170983543@qq.com  
     
 #### 参数类型 : *query*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user-name  |string |N  |若是个人头像，则可以不带该参数   |  
+|user_name  |string |N  |若是个人头像，则可以不带该参数   |  
 
-<!-- 返回格式待定 -->
-<!-- 请忽略下面的内容
-#### 返回类型 : *json*  
-
-
-#### 返回实例  
-~~~json
-{
-  "code" : 0,
-  "photo" : ""
-}
- -->  
+#### 返回类型 : *Binary*  

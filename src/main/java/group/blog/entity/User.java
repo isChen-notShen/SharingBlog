@@ -1,5 +1,7 @@
 package group.blog.entity;
 
+import group.blog.permission.Role;
+
 import java.util.List;
 
 /**
@@ -16,6 +18,10 @@ public class User {
     String password;
 
     String description;
+
+    Role role;
+
+    String lastLoginHost;
 
     List<String> watch;
 
@@ -58,5 +64,21 @@ public class User {
 
     public void setWatch(List<String> watch) {
         this.watch = watch;
+    }
+
+    public String getLastLoginHost() {
+        return lastLoginHost;
+    }
+
+    public void setLastLoginHost(String lastLoginHost) {
+        this.lastLoginHost = lastLoginHost;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -1,11 +1,14 @@
 package group.blog.service;
 
-import group.blog.service.result.LoginResult;
+import group.blog.service.result.TokenResult;
 
 /**
  * @author Mr.Chen
  **/
 public interface UserService {
 
-    LoginResult login(String userName, String password);
+    TokenResult login(String userName, String password);
+
+    byte[] getPortrait(String userName);
+
 }

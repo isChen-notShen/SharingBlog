@@ -4,17 +4,19 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="group.blog.service,group.blog.util"/>
-    <context:property-placeholder location="classpath:redis/jedis-pool-config.properties" ignore-unresolvable="true"/>
+<!--    <context:property-placeholder location="classpath:redis/jedis-pool-config.properties" ignore-unresolvable="true"/>-->
 
-    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxTotal" value="${redis.maxTotal}"/>
-        <property name="maxIdle" value="${redis.maxIdle}"/>
-        <property name="testOnBorrow" value="${redis.textOnBorrow}"/>
-    </bean>
+<!--    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+<!--        <property name="maxTotal" value="${redis.maxTotal}"/>-->
+<!--        <property name="maxIdle" value="${redis.maxIdle}"/>-->
+<!--        <property name="testOnBorrow" value="${redis.textOnBorrow}"/>-->
+<!--    </bean>-->
 
-    <bean class="redis.clients.jedis.JedisPool" destroy-method="close">
-        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
-        <constructor-arg name="host" value="${redis.host}"/>
-    </bean>
+<!--    <bean class="redis.clients.jedis.JedisPool" destroy-method="close">-->
+<!--        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>-->
+<!--        <constructor-arg name="host" value="${redis.host}"/>-->
+<!--    </bean>-->
+
+    <bean id="tokenManager" class="group.blog.util.token.manager.JWTManager"/>
     <aop:aspectj-autoproxy/>
 </beans>

@@ -1,20 +1,26 @@
 package group.blog.service.result;
 
-import java.util.UUID;
+import group.blog.service.result.code.ResponseCode;
+
+import java.util.Calendar;
 
 /**
+ * 响应码的结果
  * @author Mr.Chen
  **/
-public class LoginResult {
+public class BaseResult {
+
     private int code;
-    private String token;
+
     private String info;
 
-    public LoginResult(){}
-
-    public LoginResult(int code, String token, String info){
+    public BaseResult(int code, String info) {
         this.code = code;
-        this.token = token;
+        this.info = info;
+    }
+
+    public BaseResult(ResponseCode code, String info){
+        this.code = code.value();
         this.info = info;
     }
 
@@ -24,14 +30,6 @@ public class LoginResult {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getInfo() {
