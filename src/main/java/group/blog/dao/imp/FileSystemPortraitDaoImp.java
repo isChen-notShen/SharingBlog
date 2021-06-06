@@ -1,12 +1,14 @@
 package group.blog.dao.imp;
 
 import group.blog.dao.PortraitDao;
+import group.blog.entity.Portrait;
 import group.blog.entity.User;
 
 import java.io.*;
 
 /**
  * 基于文件系统的用户头像DAO
+ *
  * @author Mr.Chen
  **/
 public class FileSystemPortraitDaoImp implements PortraitDao {
@@ -20,21 +22,25 @@ public class FileSystemPortraitDaoImp implements PortraitDao {
     }
 
     @Override
-    public byte[] queryPortrait(User user) {
+    public Portrait getPortraitByUserId(int userId) {
         File[] files = portraitDoc.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.split("\\.")[0].equals(user.getId() + "");
+                return name.split("\\.")[0].equals(userId + "");
             }
         });
 
         if (files != null && files[0] != null) {
+            Portrait result = new Portrait();
             try {
                 byte[] image = new byte[(int) files[0].length()];
                 BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(files[0]));
-                inputStream.read(image);
+                result.setSize(inputStream.read(image));
+                result.setData(image);
+                result.setName(String.valueOf(userId));
+                result.setType(files[0].getName().split("\\.")[1]);
                 inputStream.close();
-                return image;
+                return result;
             } catch (IOException e) {
                 return null;
             }
@@ -44,11 +50,11 @@ public class FileSystemPortraitDaoImp implements PortraitDao {
     }
 
     @Override
-    public int insertPortrait(User user, byte[] image, String type) {
-        File file = new File(portraitDoc, user.getId() + "." + type);
+    public int insertPortrait(Portrait portrait) {
+        File file = new File(portraitDoc, portrait.getName() + "." + portrait.getType());
         try {
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file, false));
-            outputStream.write(image);
+            outputStream.write(portrait.getData());
             outputStream.flush();
             outputStream.close();
             return 1;
@@ -58,17 +64,18 @@ public class FileSystemPortraitDaoImp implements PortraitDao {
     }
 
     @Override
-    public int updatePortrait(User user, byte[] image, String type) {
-        deletePortrait(user);
-        return insertPortrait(user, image, type);
+    public int updatePortraitByUserId(int userId, byte[] image, String type) {
+        Portrait newPortrait = new Portrait(String.valueOf(userId), image, type);
+        deletePortraitByUserId(userId);
+        return insertPortrait(newPortrait);
     }
 
     @Override
-    public int deletePortrait(User user) {
+    public int deletePortraitByUserId(int userId) {
         File[] files = portraitDoc.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.split("\\.")[0].equals(user.getId() + "");
+                return name.split("\\.")[0].equals(userId + "");
             }
         });
         if (files != null && files[0] != null) {
@@ -76,19 +83,5 @@ public class FileSystemPortraitDaoImp implements PortraitDao {
                 return 1;
         }
         return 0;
-    }
-
-    @Override
-    public String getType(User user) {
-        File[] files = portraitDoc.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.split("\\.")[0].equals(user.getId() + "");
-            }
-        });
-        if (files != null && files[0] != null) {
-            return files[0].getName().split("\\.")[1];
-        }
-        return null;
     }
 }

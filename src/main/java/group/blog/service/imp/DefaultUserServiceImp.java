@@ -2,6 +2,7 @@ package group.blog.service.imp;
 
 import group.blog.dao.PortraitDao;
 import group.blog.dao.UserDAO;
+import group.blog.entity.Portrait;
 import group.blog.entity.User;
 import group.blog.service.UserService;
 import group.blog.service.result.TokenResult;
@@ -32,7 +33,7 @@ public class DefaultUserServiceImp implements UserService {
     public TokenResult login(String userName, String password) {
         User result = userDAO.queryUserByName(userName);
         if (result != null) {
-            if (userName.equals(result.getName()) && password.equals(result.getPassword())) {
+            if (userName.equals(result.getName()) && password.equals(result.getPassword ())) {
                 String host = updateHostOnLogin(result.getId());
                 if (host != null && !host.isEmpty()) {
                     result.setLastLoginHost(host);
@@ -46,9 +47,8 @@ public class DefaultUserServiceImp implements UserService {
     }
 
     @Override
-    public byte[] getPortrait(String userName) {
-        //TODO
-        return new byte[0];
+    public Portrait getPortraitByUserId(int userId) {
+        return portraitDao.getPortraitByUserId(userId);
     }
 
     private String updateHostOnLogin(int id) {

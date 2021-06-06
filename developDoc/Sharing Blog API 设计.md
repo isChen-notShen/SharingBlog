@@ -169,19 +169,18 @@
     否
 
 #### 请求URL  
-    http://localhost/SharingBlog/user/information?user_name=XXXXX  
+    http://localhost/SharingBlog/user/information?user_id=XXXXX  
     
 #### 请求方式  
     GET  
     
 #### 请求实例  
-    http://localhost/SharingBlog/user/information
-    http://localhost/SharingBlog/user/information?user_name=1170983543@qq.com
+    http://localhost/SharingBlog/user/information?user_id=114515
       
 #### 参数类型 : *query*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user_name  |string |N  |账号名，若查询的是自己的个人信息，则可以不带该参数，<br/>服务器通过请求的token获取用户信息    |  
+|user_id  |int |Y  |用户id   |  
 
 #### 返回类型 : *json*
     display-name : 用户名
@@ -193,8 +192,9 @@
 {
   "code" : 0,
   "info" : "success",
-  "display-name" : "Chen",
+  "user-id" : 1,
   "user-name" : "1170983543@qq.com",
+  "display-name" : "Chen",
   "description" : "Java后端程序员"
 }
 ~~~  
@@ -205,18 +205,17 @@
     否
 
 #### 请求URL  
-    http://localhost/SharingBlog/user/portrait?user_name=XXXX
+    http://localhost/SharingBlog/user/portrait?user_id=XXXX
     
 #### 请求方式  
     GET  
     
 #### 请求实例  
-    http://localhost/SharingBlog/user/portrait
-    http://localhost/SharingBlog/user/portrait?user_name=1170983543@qq.com  
+    http://localhost/SharingBlog/user/portrait?user_id=1  
     
 #### 参数类型 : *query*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user_name  |string |N  |若是个人头像，则可以不带该参数   |  
+|user_id  |string |Y  |账号id   |  
 
 #### 返回类型 : *Binary*  

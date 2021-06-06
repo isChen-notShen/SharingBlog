@@ -1,16 +1,15 @@
 package group.blog.dao;
 
-import group.blog.entity.User;
+import group.blog.entity.Portrait;
 
 public interface PortraitDao {
 
-    byte[] queryPortrait(User user);
+    Portrait getPortraitByUserId(int userId);
 
-    int insertPortrait(User user, byte[] image, String type);
+    int insertPortrait(Portrait portrait);
 
-    int updatePortrait(User user, byte[] image, String type);
+    int updatePortraitByUserId(int userId, byte[] image, String type);
 
-    int deletePortrait(User user);
+    int deletePortraitByUserId(int userId);
 
-    String getType(User user);
 }

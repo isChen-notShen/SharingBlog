@@ -1,5 +1,6 @@
 package group.blog.service;
 
+import group.blog.entity.Portrait;
 import group.blog.service.result.TokenResult;
 
 /**
@@ -9,6 +10,6 @@ public interface UserService {
 
     TokenResult login(String userName, String password);
 
-    byte[] getPortrait(String userName);
+    Portrait getPortraitByUserId(int userId);
 
 }
