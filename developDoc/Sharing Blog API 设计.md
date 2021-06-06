@@ -91,10 +91,10 @@
     否  
 
 #### 请求URL  
-    http://localhost/SharingBlog/blog/:blog-id  
+    http://localhost/SharingBlog/blogs/:blog-id  
    
 #### 请求实例  
-    http://localhost/SharingBlog/blog/bo155sa
+    http://localhost/SharingBlog/blogs/bo155sa
     
 #### 请求方式  
     GET  
@@ -219,3 +219,14 @@
 |user_id  |string |Y  |账号id   |  
 
 #### 返回类型 : *Binary*  
+
+### 7.注册  
+
+#### 身份验证  
+    否  
+    
+#### 请求URL  
+    http://localhost/SharingBlog/user/register  
+    
+#### 请求方式  
+    POST
