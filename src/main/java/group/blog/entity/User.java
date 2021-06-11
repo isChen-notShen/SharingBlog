@@ -17,13 +17,15 @@ public class User {
 
     String password;
 
+    String displayName;
+
     String description;
 
     Role role;
 
     String lastLoginHost;
 
-    List<String> watch;
+    List<User> watch;
 
 
     public int getId() {
@@ -42,7 +44,7 @@ public class User {
         return description;
     }
 
-    public List<String> getWatch() {
+    public List<User> getWatch() {
         return watch;
     }
 
@@ -62,7 +64,7 @@ public class User {
         this.description = description;
     }
 
-    public void setWatch(List<String> watch) {
+    public void setWatch(List<User> watch) {
         this.watch = watch;
     }
 
@@ -80,5 +82,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

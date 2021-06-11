@@ -1,4 +1,4 @@
-package group.blog.util.mime;
+package group.blog.util.converter;
 
 /**
  * @author Mr.Chen

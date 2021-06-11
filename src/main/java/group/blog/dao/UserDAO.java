@@ -9,5 +9,9 @@ public interface UserDAO {
 
     User queryUserByName(String name);
 
+    int insertCommonUser(User user);
+
     int updateLastLoginHostById(@Param("id") int id,@Param("host") String host);
+
+    User queryFocusByUserId(int userId);
 }

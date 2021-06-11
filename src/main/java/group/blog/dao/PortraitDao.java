@@ -2,6 +2,7 @@ package group.blog.dao;
 
 import group.blog.entity.Portrait;
 
+@SuppressWarnings("MybatisXMapperMethodInspection")
 public interface PortraitDao {
 
     Portrait getPortraitByUserId(int userId);

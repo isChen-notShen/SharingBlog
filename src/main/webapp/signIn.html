@@ -1,9 +1,10 @@
 <html lang="zh">
 <head>
     <title>登录</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
     <style>
-        input[type=text],input[type=password] {
+        input[type=text], input[type=password] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -51,18 +52,18 @@
             position: relative;
             padding: 20px;
             top: 50%;
-            width:50%;
+            width: 50%;
             height: 200px;
             margin: -200px auto 0;
         }
-        
+
         @media screen and (max-width: 600px) {
             div {
                 top: 0;
                 width: 100%;
                 height: 100%;
                 padding: 10px;
-                margin:0;
+                margin: 0;
             }
 
             input[type=text], input[type=password] {
@@ -85,14 +86,35 @@
     <div>
         <form action="user/login" method="post">
             <label for="user_name">User Name</label>
-            <input type="text" id="user_name" name="user_name" placeholder="Your user name">
+            <input type="text" id="user_name" placeholder="Your user name">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Your password">
+            <input type="password" id="password" placeholder="Your password">
 
-            <input type="button" value="注册" onclick="">
+            <input id="register" type="button" value="注册">
             <input type="submit" value="登录">
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        const url = 'http://localhost/SharingBlog/user/register';
+        $('#register').click(function () {
+            let user_name = document.getElementById('user_name').value
+            let password = document.getElementById('password').value
+            $.ajax({
+                url : url,
+                type : 'POST',
+                data : {
+                    user_name : user_name,
+                    password  : password
+                },
+                dataType : 'json',
+                success : function (res) {
+                    alert(res.code + "\n" +res.info)
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>
