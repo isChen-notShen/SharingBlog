@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/base.css">
+</head>
+<body>
+<div id="header"></div>
+<div class="container">
+    <div class="row" style="margin-top: 20px">
+        <div id="blogList" class="col-6 offset-2">
+            <div class="card">
+                <a class="card-header">这是第一篇博客</a>
+                <a class="card-body">这是博客的内容摘要</a>
+                <div class="card-footer">
+                    <span>Chen</span>
+                    <span>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-xiaoxi"></use>
+                        </svg>
+                        64
+                    </span>
+                    <span>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yanjing"></use>
+                        </svg>
+                        1798
+                    </span>
+                    <span>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-dianzan"></use>
+                        </svg>
+                        202
+                    </span>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-3 blog-sidebar">
+            <div class="sidebar-module">
+                <h5>热门</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a class="sidebar-link" href="">Java垃圾收集机制</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-link" href="">Spring框架入门</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-link" href="">Mybatis基本使用</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-module">
+                <h5>作者推荐</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a class="sidebar-link" href="#">GitHub</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-link" href="#">Twitter</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-link" href="#">Facebook</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="/static/js/index.js"></script>
+<script>
+    $("#header").load("static/html/header.html")
+</script>
+</body>
+</html>

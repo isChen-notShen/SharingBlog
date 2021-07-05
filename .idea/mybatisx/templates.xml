@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TemplatesSettings">
+    <option name="templateConfigs">
+      <TemplateContext>
+        <option name="generateConfig">
+          <GenerateConfig>
+            <option name="annotationType" value="NONE" />
+            <option name="basePackage" value="group.blog" />
+            <option name="basePath" value="src/main/java" />
+            <option name="domainObjectName" value="Tag" />
+            <option name="encoding" value="UTF-8" />
+            <option name="extraTemplateNames">
+              <list />
+            </option>
+            <option name="moduleName" value="SharingBlog" />
+            <option name="modulePath" value="$PROJECT_DIR$/" />
+            <option name="needToStringHashcodeEquals" value="true" />
+            <option name="relativePackage" value="entity" />
+            <option name="removedPrefix" value="" />
+            <option name="removedSuffix" value="" />
+            <option name="rootClass" value="" />
+            <option name="tableName" value="tag" />
+            <option name="targetProject" value="$PROJECT_DIR$" />
+            <option name="templatesName" value="mybatis-plus3" />
+          </GenerateConfig>
+        </option>
+        <option name="projectPath" value="$PROJECT_DIR$" />
+      </TemplateContext>
+    </option>
+  </component>
+</project>
