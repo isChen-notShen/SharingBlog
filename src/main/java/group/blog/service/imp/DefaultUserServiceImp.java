@@ -1,6 +1,6 @@
 package group.blog.service.imp;
 
-import group.blog.dao.PortraitDao;
+import group.blog.dao.PortraitDAO;
 import group.blog.dao.UserDAO;
 import group.blog.entity.Portrait;
 import group.blog.entity.User;
@@ -28,7 +28,7 @@ public class DefaultUserServiceImp implements UserService {
     private UserDAO userDAO;
 
     @Autowired
-    private PortraitDao portraitDao;
+    private PortraitDAO portraitDAO;
 
     @Autowired
     private TokenManager tokenManager;
@@ -50,7 +50,7 @@ public class DefaultUserServiceImp implements UserService {
 
     @Override
     public Portrait getPortraitByUserId(int userId) {
-        return portraitDao.getPortraitByUserId(userId);
+        return portraitDAO.getPortraitByUserId(userId);
     }
 
     @Override
@@ -81,10 +81,20 @@ public class DefaultUserServiceImp implements UserService {
     }
 
     @Override
-    public UserInformationResult getInformation(String userId) {
+    public UserInformationResult getInfoById(String userId) {
         assert userId != null;
         User user = userDAO.queryUserById(Integer.parseInt(userId));
         if (user == null) {
+            return new UserInformationResult(ResponseCode.Resource_Not_Exist, "该用户不存在");
+        }
+        return new UserInformationResult(ResponseCode.Request_Success, "success", Integer.toString(user.getId()), user.getName(), user.getDisplayName(), user.getDescription());
+    }
+
+    @Override
+    public UserInformationResult getInfoByName(String userName) {
+        assert userName != null;
+        User user = userDAO.queryUserByName(userName);
+        if (user == null){
             return new UserInformationResult(ResponseCode.Resource_Not_Exist, "该用户不存在");
         }
         return new UserInformationResult(ResponseCode.Request_Success, "success", Integer.toString(user.getId()), user.getName(), user.getDisplayName(), user.getDescription());

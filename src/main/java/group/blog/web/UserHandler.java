@@ -28,12 +28,12 @@ public class UserHandler {
 
     @PostMapping("/login")
     @ResponseBody
-    public TokenResult login(@RequestParam("user_name") String userName, @RequestParam("password") String password) {
+    public TokenResult login(@RequestParam("account") String userName, @RequestParam("password") String password) {
         return userService.login(userName, password);
     }
 
     @GetMapping("/portrait")
-    public void getPortrait(@RequestParam(value = "user_id") int userId, HttpServletResponse response) throws IOException {
+    public void getPortrait(@RequestParam(value = "userId") int userId, HttpServletResponse response) throws IOException {
         Portrait portrait = userService.getPortraitByUserId(userId);
         response.setContentType(ImageMIMEConverter.NameExtensionToMIME(portrait.getType()));
         OutputStream out = response.getOutputStream();
@@ -44,7 +44,7 @@ public class UserHandler {
 
     @PostMapping("/register")
     @ResponseBody
-    public BaseResult register(@RequestParam("user_name") String userName, @RequestParam("password") String password,HttpServletResponse response) {
+    public BaseResult register(@RequestParam("account") String userName, @RequestParam("password") String password, HttpServletResponse response) {
         if (userName == null || userName.isEmpty()) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return new BaseResult(ResponseCode.Request_Failure, "用户名不能为空");
@@ -58,13 +58,13 @@ public class UserHandler {
 
     @PostMapping("/logout")
     @ResponseBody
-    public BaseResult logout(HttpServletRequest request, HttpServletResponse response){
+    public BaseResult logout(HttpServletRequest request, HttpServletResponse response) {
         String tokenHeader = request.getHeader("Authentication");
         if (tokenHeader == null || tokenHeader.isEmpty()) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return new BaseResult(ResponseCode.Not_Accessible, "可能未登录，Token不存在");
         }
-        if (!tokenHeader.matches("^Bearer ")){
+        if (!tokenHeader.matches("^Bearer ")) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return new BaseResult(ResponseCode.Request_Syntax_Error, "请求头Token格式无法识别");
         }
@@ -72,13 +72,17 @@ public class UserHandler {
         return userService.logout(token);
     }
 
-    @GetMapping("/information")
+    @GetMapping("/info")
     @ResponseBody
-    public UserInformationResult getInformation(@RequestParam("user_id") String userId, HttpServletResponse response){
-        if (userId == null || userId.isEmpty()){
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return new UserInformationResult(ResponseCode.Request_Syntax_Error,"user_id不能未空");
+    public UserInformationResult getInfoById(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "userId", required = false) String userId, HttpServletResponse response) {
+        if (userName != null && !userName.isEmpty()){
+            return userService.getInfoByName(userName);
         }
-        return userService.getInformation(userId);
+        if (userId != null && !userId.isEmpty()) {
+            return userService.getInfoById(userId);
+        }
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        return new UserInformationResult(ResponseCode.Request_Syntax_Error, "userName || userId 不能未空");
     }
+
 }

@@ -1,9 +1,13 @@
 package group.blog.entity;
 
+import java.io.Serializable;
+
 /**
  * @author Mr.Chen
  **/
-public class Portrait {
+public class Portrait implements Serializable {
+
+    private static final long serialVersionUID = -5573969212525841744L;
 
     private String name;
 

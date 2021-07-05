@@ -18,6 +18,8 @@ public interface UserService {
 
     BaseResult logout(String token);
 
-    UserInformationResult getInformation(String userId);
+    UserInformationResult getInfoById(String userId);
+
+    UserInformationResult getInfoByName(String userName);
 
 }

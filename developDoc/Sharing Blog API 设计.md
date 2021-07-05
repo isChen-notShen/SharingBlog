@@ -15,7 +15,7 @@
     否  
 
 #### 请求URL
-    http://localhost/SharingBlog/user/login 
+    http://localhost/user/login 
 
 #### 请求方式
     POST  
@@ -23,7 +23,7 @@
 #### 参数类型 : *body*
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user_name  |string |Y  |账号名    |
+|userName  |string |Y  |账号名    |
 |password   |string |Y  |密码 |
 
 #### 返回类型  
@@ -56,7 +56,7 @@
     否  
 
 #### 请求URL  
-    http://localhost/SharingBlog/user/register  
+    http://localhost/user/register  
 
 #### 请求方式  
     POST
@@ -64,7 +64,7 @@
 #### 参数类型 : *body*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user_name  |string |Y  |注册的账号  |
+|userName  |string |Y  |注册的账号  |
 |password   |string |Y  |注册的密码  |
 
 #### 返回类型 : *json*  
@@ -93,7 +93,7 @@
     是 : 请求头携带token  
 
 #### 请求URL  
-    http://localhost/SharingBlog/user/logout  
+    http://localhost/user/logout  
 
 #### 请求方式  
     POST  
@@ -118,18 +118,18 @@
     否
 
 #### 请求URL  
-    http://localhost/SharingBlog/user/portrait?user_id=XXXX
+    http://localhost/user/portrait?userId=XXXX
 
 #### 请求方式  
     GET  
 
 #### 请求实例  
-    http://localhost/SharingBlog/user/portrait?user_id=1  
+    http://localhost/user/portrait?userId=1  
 
 #### 参数类型 : *query*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user_id  |string |Y  |账号id   |
+|userId  |string |Y  |账号id   |
 
 #### 返回类型 : *Binary*  
 
@@ -141,18 +141,20 @@
     否
 
 #### 请求URL  
-    http://localhost/SharingBlog/user/information?user_id=XXXXX  
+    http://localhost/user/information?userId=xxx||userName=xxx  
 
 #### 请求方式  
     GET  
 
 #### 请求实例  
-    http://localhost/SharingBlog/user/information?user_id=114515
+    http://localhost/user/info?userId=114515
+    http://localhost/user/info?userName=1170983543@qq.com
 
 #### 参数类型 : *query*  
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|user_id  |int |Y  |用户id   |
+|userId  |int |N  |用户id   |
+|userName   |String |N  |用户名    |
 
 #### 返回类型 : *json*
     displayName : 用户名
@@ -185,26 +187,26 @@
     否
 
 #### 请求URL
-    http://localhost/SharingBlog/blogs[?category-id=XXX]  
+    http://localhost/blogs[?categoryId=XXX]  
 
 #### 请求方式
     GET  
 
 #### 请求实例  
-    http://localhost/SharingBlog/blogs
-    http://localhost/SharingBlog/blogs?category-id=ss15xd
+    http://localhost/blogs
+    http://localhost/blogs?categoryId=ss15xd
 
 #### 参数类型 : *query*
 |参数名    |参数类型   |是否必选   |说明 |
 |:---    |:---    |:---    |:---    |
-|category-id   |string |N  |博客的分类id，根据分类来获取博客列表  |
+|categoryId   |string |N  |博客的分类id，根据分类来获取博客列表  |
 
 注：category应该和分类表中的标签id一致，否者服务器将返回空数据
 
 #### 返回数据
     count : 数据数量
-    blog-id : 博客唯一标识符，在查询特定博客时，需要该数据
-    blog-name : 博客名称
+    blogId : 博客唯一标识符，在查询特定博客时，需要该数据
+    blogName : 博客名称
     like : 点赞数
 
 
@@ -216,13 +218,17 @@
   "count": 2,
   "data" : [
               {
-                "blog-id" : "bo155sa",
-                "blog-name": "MySql性能调优",
+                "blogId" : "bo155sa",
+                "blogName": "MySql性能调优",
+                "author"  : "Chen",
+                "comment" : 15,
                 "like": 500
               },
               {
-                "blog-id" : "bo985ax",
-                "blog-name": "MySql基本语法",
+                "blogId" : "bo985ax",
+                "blogName": "MySql基本语法",
+                "author"  : "Chen",
+                "comment" : 24,
                 "like": 60
               }
            ]
@@ -237,10 +243,10 @@
     否  
 
 #### 请求URL  
-    http://localhost/SharingBlog/blogs/:blog-id  
+    http://localhost/blogs/:blogId  
 
 #### 请求实例  
-    http://localhost/SharingBlog/blogs/bo155sa
+    http://localhost/blogs/bo155sa
 
 #### 请求方式  
     GET  
@@ -248,12 +254,12 @@
 #### 参数类型 : *path*
 |参数名    |参数类型   |是否必选   |说明 |
 |:---   |:---   |:---   |:---   |
-|blog-id    |string |Y  |博客的id  |
+|blogId    |string |Y  |博客的id  |
 
 #### 返回数据  
-    blog-name : 博客标题
+    blogName : 博客标题
     author : 博客作者
-    released-time : 博客的发布时间
+    releasedTime : 博客的发布时间
     like : 博客的点赞数
     data : 博客的内容
 
@@ -262,9 +268,9 @@
 {
   "code" : 0,
   "info" : "success",
-  "blog-name" : "Java垃圾收集机制详解",
+  "blogName" : "Java垃圾收集机制详解",
   "author" : "XXX",
-  "released-time" : "yyyy-mm-dd",
+  "releasedTime" : "yyyy-mm-dd",
   "like" : 520,
   "data" : "#Java GC发展历程  \n......\n #Java虚拟机内存划分  \n......"
 }
@@ -284,14 +290,14 @@
     否  
 
 #### 请求URL
-    http://localhost/SharingBlog/categories
+    http://localhost/categories
 
 #### 请求方式
     GET  
 
 #### 返回数据
-    category-id : 分类的唯一标识符，在查询分类下的博客时，需要提交这个数据
-    category-name : 分类名称
+    categoryId : 分类的唯一标识符，在查询分类下的博客时，需要提交这个数据
+    categoryName : 分类名称
 
 #### 返回实例
 ~~~json
@@ -301,12 +307,12 @@
   "count": 2,
   "data" : [
             {
-            "category-id" : "ss15xd",
-            "category-name" : "SQL"
+            "categoryId" : "ss15xd",
+            "categoryName" : "SQL"
             },
             {
-             "category-id" : "sh36d",
-             "category-name" : "Linux"
+             "categoryId" : "sh36d",
+             "categoryName" : "Linux"
             }
            ]
 }

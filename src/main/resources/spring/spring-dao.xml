@@ -37,5 +37,5 @@
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="portraitDao" class="group.blog.dao.imp.FileSystemPortraitDaoImp"/>
+    <bean id="portraitDAO" class="group.blog.dao.imp.FileSystemPortraitDAOImp"/>
 </beans>

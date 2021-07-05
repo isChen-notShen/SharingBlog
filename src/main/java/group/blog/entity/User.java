@@ -2,6 +2,7 @@ package group.blog.entity;
 
 import group.blog.permission.Role;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,9 @@ import java.util.List;
  *
  * @author Mr.Chen
  **/
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 6385509171928716654L;
 
     int id;
 
