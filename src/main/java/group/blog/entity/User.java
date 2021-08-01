@@ -1,5 +1,8 @@
 package group.blog.entity;
 
+import group.blog.permission.Role;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +10,9 @@ import java.util.List;
  *
  * @author Mr.Chen
  **/
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 6385509171928716654L;
 
     int id;
 
@@ -15,9 +20,15 @@ public class User {
 
     String password;
 
+    String displayName;
+
     String description;
 
-    List<String> watch;
+    Role role;
+
+    String lastLoginHost;
+
+    List<User> watch;
 
 
     public int getId() {
@@ -36,7 +47,7 @@ public class User {
         return description;
     }
 
-    public List<String> getWatch() {
+    public List<User> getWatch() {
         return watch;
     }
 
@@ -56,7 +67,31 @@ public class User {
         this.description = description;
     }
 
-    public void setWatch(List<String> watch) {
+    public void setWatch(List<User> watch) {
         this.watch = watch;
+    }
+
+    public String getLastLoginHost() {
+        return lastLoginHost;
+    }
+
+    public void setLastLoginHost(String lastLoginHost) {
+        this.lastLoginHost = lastLoginHost;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

@@ -1,0 +1,170 @@
+<script src="//at.alicdn.com/t/font_2620471_x4q9j9vgc1.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>
+<nav class="navbar navbar-expand-sm bg-light navbar-light" style="padding-top: 0;padding-bottom: 0">
+    <div class="container">
+        <b class="navbar-brand" style="font-family: Georgia, 'Times New Roman', Times, serif">Blog</b>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse offset-1" id="collapsibleNavbar">
+            <ul class="nav navbar-nav me-auto">
+                <li class="nav-item">
+                    <a href="/index.html">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-shouye"></use>
+                        </svg>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/watch.html">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-wodeguanzhu"></use>
+                        </svg>
+                        <span>关注</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/category.html">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-category"></use>
+                        </svg>
+                        <span>分类</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="d-flex">
+                <div class="input-group input-group-sm">
+                    <label for="search"></label>
+                    <input id="search" class="form-control" type="text" placeholder="Search" maxlength="10"/>
+                    <button class="btn btn-success" type="button">Search</button>
+                </div>
+            </div>
+
+            <div id="login" class="d-flex dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-auto-close="false"
+                   data-bs-toggle="dropdown">Login<span class="caret"></span></a>
+                <ul id="login-dp" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <div class="row">
+                            <form class="form-group" role="form" method="post" accept-charset="UTF-8" id="login-nav">
+                                <span id="login-tips"></span>
+                                <div class="form-group">
+                                    <label for="account">账号名</label>
+                                    <input type="text" class="form-control" id="account" name="account"
+                                           placeholder="Account" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密码</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           placeholder="Password" required>
+                                    <div class="help-block text-end"><a href="">忘记密码?</a></div>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input id="rememberMe" name="rememberMe" type="checkbox"
+                                               class="form-check-input"> 记住我
+                                    </label>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="login()">Sign in</button>
+                            </form>
+                            <div class="bottom text-center">
+                                New here ? <a href="#"><b>Join Us</b></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="after-login" class="d-none">
+                <div id="user" class="dropdown ms-4">
+                    <a class="avatar dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"><img
+                            src="" alt="用户头像"></a>
+                    <ul class="dropdown-menu" style="margin-top: 7px" aria-labelledby="navbarDropdown">
+                        <li>
+                            <button class="btn btn-sm" onclick="logout()">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-quit"></use>
+                                </svg>
+                                <span>注销</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <a class="btn btn-sm btn-success btn-editor ms-5" target="_blank" href="/editor.html">写文章</a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+<script src="/static/js/init.js"></script>
+<script>
+    (function () {
+        let url = location.pathname, navItem = $('.navbar-nav span');
+        if (url === '' || url === '/' || url === '/index.html') {
+            navItem.eq(0).addClass('current');
+        } else if (!url.indexOf('/SharingBlog/watch.html')) {
+            navItem.eq(1).addClass('current');
+        } else if (!url.indexOf('/SharingBlog/category.html')) {
+            navItem.eq(2).addClass('current')
+        }
+    }());
+
+    $('#login a').click(function () {
+        $('#login-tips').html('')
+        $('#account').val('')
+        $('#password').val('')
+        $('#rememberMe').prop('checked', false)
+    })
+
+    function login() {
+        let account = $('#login-nav #account').val();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: "user/login",
+            data: $('#login-nav').serialize(),
+            success: function (result) {
+                // console.log(result);
+                if (result.code === 0) {
+                    saveToken(result.token)
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '/user/info',
+                        data: {userName: account},
+                        success:function (infoResult) {
+                            console.log(infoResult)
+                            saveUserInfo(infoResult)
+                            if (infoResult.userId !== undefined || infoResult.userId !== ''){
+                                $('#after-login img').prop('src','/user/portrait?userId=' + infoResult.userId)
+                            }
+                        }
+                    })
+                    hideNavbarItem('#login')
+                    showNavbarItem('#after-login')
+                }
+                if (result.code === 1) {
+                    let element = $('#login-tips')
+                    if (element === undefined) {
+                        console.log('选择器未发现元素')
+                    } else {
+                        element.html(result.info)
+                    }
+                }
+            },
+            error: function () {
+                alert('登录异常，稍后重试');
+            }
+        })
+    }
+
+    function logout() {
+        cleanToken();
+        cleanUserInfo();
+        location.reload();
+    }
+
+</script>
